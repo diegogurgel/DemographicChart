@@ -22,6 +22,9 @@ public class DemoChart extends View {
     private int mHorizCenter;
     private int mHorizCenterWoman;
     private int mHorizCenterMan;
+    private int mLineDistance;
+    private int mMidleSpace;
+    private int mHeightBars;
     Paint mPaintBarsRight;
     Paint mPaintBarsLeft;
     Paint mPaintLabels;
@@ -34,6 +37,9 @@ public class DemoChart extends View {
     public DemoChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         mD = context.getResources().getDisplayMetrics().density;
+        mLineDistance = Math.round(10 * mD);
+        mMidleSpace = Math.round(20 * mD);
+        mHeightBars = Math.round(10 * mD);
     }
 
 
@@ -44,8 +50,8 @@ public class DemoChart extends View {
         mWidth = canvas.getWidth();
         mHeight = canvas.getHeight();
         mHorizCenter = mWidth/2;
-        mHorizCenterWoman = mHorizCenter+(int)(30*mD);
-        mHorizCenterMan = mHorizCenter-(int)(30*mD);
+        mHorizCenterWoman = mHorizCenter+ mMidleSpace;
+        mHorizCenterMan = mHorizCenter- mMidleSpace;
         init();
 
         List<Integer> values = new ArrayList<Integer>();
@@ -75,7 +81,7 @@ public class DemoChart extends View {
         labels.add("20-24");
         labels.add("10-14");
         labels.add("0-4");
-        
+
         setLabels(labels);
         drawLabels();
 
@@ -87,7 +93,7 @@ public class DemoChart extends View {
         mPaintBarsRight.setColor(Color.BLUE);
         mPaintBarsLeft.setColor(Color.MAGENTA);
         mPaintLabels.setColor(Color.BLACK);
-        mPaintLabels.setTextSize(7*mD);
+        mPaintLabels.setTextSize(10*mD);
         mPaintLabels.setStyle(Paint.Style.FILL);
         mPaintLabels.setTextAlign(Paint.Align.CENTER);
     }
@@ -125,25 +131,20 @@ public class DemoChart extends View {
     }
     public void drawWoman(){
         int totalSize = mWidth-mHorizCenterWoman;
-        int heightBar = (int)(7*mD);
-        int distance = (int)(3*mD);
-
         for (int i = 0; i <mValuesWoman.size() ; i++) {
             int startY;
-            startY = (int)(i*(heightBar+distance));
-            int endY = startY+heightBar;
+            startY = i*(mHeightBars+mLineDistance);
+            int endY = startY+mHeightBars;
 
             int endX = mHorizCenterWoman+((totalSize*mPercentsWomen.get(i))/100);
             drawLineRight(startY,endY,endX);
         }
     }
     public void drawLabels(){
-        int heightBar = (int)(7*mD);
-        int distance = (int)(3*mD);
         for (int i = 0; i < mLabels.size() ; i++) {
             int startY;
-            startY = (i*(heightBar+distance));
-            int endY = startY+heightBar;
+            startY = (i*(mHeightBars+mLineDistance));
+            int endY = startY+mHeightBars;
             drawLabel(mLabels.get(i),endY);
         }
     }
@@ -151,15 +152,12 @@ public class DemoChart extends View {
         mCanvas.drawText(text,mHorizCenter,y,mPaintLabels);
     }
     public void drawMan(){
-        int difference =(int)((30*2)*mD);
+        int difference = mMidleSpace*2;
         int totalSize = (mWidth-difference)-mHorizCenterMan;
-        int heightBar = (int)(7*mD);
-        int distance = (int)(3*mD);
-
         for (int i = 0; i <mValuesMan.size() ; i++) {
             int startY;
-            startY = (int)(i*(heightBar+distance));
-            int endY = startY+heightBar;
+            startY = i*(mHeightBars+mLineDistance);
+            int endY = startY+mHeightBars;
             int startX = totalSize - ((mPercentsMan.get(i)*totalSize/100));
             drawLineLeft(startX, startY, endY);
         }
