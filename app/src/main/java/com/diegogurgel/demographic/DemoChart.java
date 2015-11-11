@@ -24,21 +24,12 @@ public class DemoChart extends View {
     private int mHorizCenterMan;
     Paint mPaintBarsRight;
     Paint mPaintBarsLeft;
+    Paint mPaintLabels;
     List<Integer> mPercentsWomen;
     List<Integer> mValuesWoman;
     List<Integer> mPercentsMan;
-
-    public void setmValuesMan(List<Integer> mValuesMan) {
-        this.mValuesMan = mValuesMan;
-    }
-
     List<Integer> mValuesMan;
-
-    public void setValuesWoman(List<Integer> mValuesWoman) {
-        this.mValuesWoman = mValuesWoman;
-    }
-
-
+    List<String> mLabels;
 
     public DemoChart(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,6 +49,7 @@ public class DemoChart extends View {
         init();
 
         List<Integer> values = new ArrayList<Integer>();
+        List<String> labels = new ArrayList<String>();
 
         values.add(830);
         values.add(3025);
@@ -74,14 +66,30 @@ public class DemoChart extends View {
         setPercentsMan(mValuesMan);
         drawWoman();
         drawMan();
+        labels.add("90+");
+        labels.add("80-84");
+        labels.add("60-64");
+        labels.add("50-54");
+        labels.add("40-44");
+        labels.add("30-34");
+        labels.add("20-24");
+        labels.add("10-14");
+        labels.add("0-4");
+        
+        setLabels(labels);
+        drawLabels();
 
     }
     private void init(){
         mPaintBarsRight = new Paint();
         mPaintBarsLeft = new Paint();
+        mPaintLabels = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintBarsRight.setColor(Color.BLUE);
         mPaintBarsLeft.setColor(Color.MAGENTA);
-
+        mPaintLabels.setColor(Color.BLACK);
+        mPaintLabels.setTextSize(7*mD);
+        mPaintLabels.setStyle(Paint.Style.FILL);
+        mPaintLabels.setTextAlign(Paint.Align.CENTER);
     }
     private void drawLineRight(int startY,int endY, int endX){
         RectF rect = new RectF(mHorizCenterWoman,startY,endX,endY);
@@ -129,6 +137,19 @@ public class DemoChart extends View {
             drawLineRight(startY,endY,endX);
         }
     }
+    public void drawLabels(){
+        int heightBar = (int)(7*mD);
+        int distance = (int)(3*mD);
+        for (int i = 0; i < mLabels.size() ; i++) {
+            int startY;
+            startY = (i*(heightBar+distance));
+            int endY = startY+heightBar;
+            drawLabel(mLabels.get(i),endY);
+        }
+    }
+    public void drawLabel(String text,int y){
+        mCanvas.drawText(text,mHorizCenter,y,mPaintLabels);
+    }
     public void drawMan(){
         int difference =(int)((30*2)*mD);
         int totalSize = (mWidth-difference)-mHorizCenterMan;
@@ -140,7 +161,16 @@ public class DemoChart extends View {
             startY = (int)(i*(heightBar+distance));
             int endY = startY+heightBar;
             int startX = totalSize - ((mPercentsMan.get(i)*totalSize/100));
-            drawLineLeft(startX,startY,endY);
+            drawLineLeft(startX, startY, endY);
         }
+    }
+    public void setLabels(List<String> mLabels) {
+        this.mLabels = mLabels;
+    }
+    public void setmValuesMan(List<Integer> mValuesMan) {
+        this.mValuesMan = mValuesMan;
+    }
+    public void setValuesWoman(List<Integer> mValuesWoman) {
+        this.mValuesWoman = mValuesWoman;
     }
 }
