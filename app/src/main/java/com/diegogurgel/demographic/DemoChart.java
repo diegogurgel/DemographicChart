@@ -25,6 +25,7 @@ public class DemoChart extends View {
     private int mLineDistance;
     private int mMidleSpace;
     private int mHeightBars;
+    private int mMax = 0;
     Paint mPaintBarsRight;
     Paint mPaintBarsLeft;
     Paint mPaintLabels;
@@ -54,21 +55,33 @@ public class DemoChart extends View {
         mHorizCenterMan = mHorizCenter- mMidleSpace;
         init();
 
-        List<Integer> values = new ArrayList<Integer>();
+        List<Integer> valuesWoman = new ArrayList<Integer>();
+        List<Integer> valuesMan = new ArrayList<Integer>();
         List<String> labels = new ArrayList<String>();
 
-        values.add(830);
-        values.add(3025);
-        values.add(10740);
-        values.add(18897);
-        values.add(23155);
-        values.add(27312);
-        values.add(28706);
-        values.add(22341);
-        values.add(19243);
-        setValuesWoman(values);
+        valuesWoman.add(830);
+        valuesWoman.add(3025);
+        valuesWoman.add(10740);
+        valuesWoman.add(18897);
+        valuesWoman.add(23155);
+        valuesWoman.add(27312);
+        valuesWoman.add(28706);
+        valuesWoman.add(22341);
+        valuesWoman.add(19243);
+
+        valuesMan.add(530);
+        valuesMan.add(1681);
+        valuesMan.add(8969);
+        valuesMan.add(16424);
+        valuesMan.add(21532);
+        valuesMan.add(26576);
+        valuesMan.add(29173);
+        valuesMan.add(23145);
+        valuesMan.add(19973);
+
+        setValuesWoman(valuesWoman);
         setPercentsWoman(mValuesWoman);
-        setmValuesMan(values);
+        setmValuesMan(valuesMan);
         setPercentsMan(mValuesMan);
         drawWoman();
         drawMan();
@@ -107,26 +120,24 @@ public class DemoChart extends View {
     }
     public void setPercentsWoman(List<Integer> values){
         mPercentsWomen = new ArrayList<Integer>();
-        int max = 0;
         for (Integer value : values) {
-            if(value>max){
-                max=value;
+            if(value>mMax){
+                mMax=value;
             }
         }
         for (Integer value : values) {
-            mPercentsWomen.add((value*100)/max);
+            mPercentsWomen.add((value*100)/mMax);
         }
     }
     public void setPercentsMan(List<Integer> values){
         mPercentsMan = new ArrayList<Integer>();
-        int max = 0;
         for (Integer value : values) {
-            if(value>max){
-                max=value;
+            if(value>mMax){
+                mMax=value;
             }
         }
         for (Integer value : values) {
-            mPercentsMan.add((value*100)/max);
+            mPercentsMan.add((value*100)/mMax);
         }
     }
     public void drawWoman(){
