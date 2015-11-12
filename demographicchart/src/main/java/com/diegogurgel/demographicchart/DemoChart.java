@@ -1,4 +1,4 @@
-package com.diegogurgel.demographic;
+package com.diegogurgel.demographicchart;
 
 import android.content.Context;
 import android.graphics.Canvas;
