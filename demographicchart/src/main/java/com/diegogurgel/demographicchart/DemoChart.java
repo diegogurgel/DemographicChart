@@ -40,7 +40,7 @@ public class DemoChart extends View {
     public DemoChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         mD = context.getResources().getDisplayMetrics().density;
-        mLineDistance = Math.round(10 * mD);
+        mLineDistance = Math.round(7 * mD);
         mMidleSpace = Math.round(20 * mD);
         mHeightBars = Math.round(10 * mD);
         TypedArray a =  context.getTheme().obtainStyledAttributes(attrs,R.styleable.DemoChart,0,0);
@@ -123,7 +123,7 @@ public class DemoChart extends View {
         for (int i = 0; i < mLabels.size() ; i++) {
             int startY;
             startY = (i*(mHeightBars+mLineDistance));
-            int endY = startY+mHeightBars;
+            int endY = (startY+mHeightBars)-(int)(1*mD);
             drawLabel(mLabels.get(i),endY);
         }
     }
