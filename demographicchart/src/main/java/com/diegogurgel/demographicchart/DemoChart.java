@@ -1,6 +1,7 @@
 package com.diegogurgel.demographicchart;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -34,6 +35,7 @@ public class DemoChart extends View {
     List<Integer> mPercentsMan;
     List<Integer> mValuesMan;
     List<String> mLabels;
+    int mColorMan,mColorWoman;
 
     public DemoChart(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -41,8 +43,10 @@ public class DemoChart extends View {
         mLineDistance = Math.round(10 * mD);
         mMidleSpace = Math.round(20 * mD);
         mHeightBars = Math.round(10 * mD);
+        TypedArray a =  context.getTheme().obtainStyledAttributes(attrs,R.styleable.DemoChart,0,0);
+        mColorMan = a.getColor(R.styleable.DemoChart_manColor,Color.BLUE);
+        mColorWoman = a.getColor(R.styleable.DemoChart_womanColor,Color.MAGENTA);
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -55,47 +59,11 @@ public class DemoChart extends View {
         mHorizCenterMan = mHorizCenter- mMidleSpace;
         init();
 
-        List<Integer> valuesWoman = new ArrayList<Integer>();
-        List<Integer> valuesMan = new ArrayList<Integer>();
-        List<String> labels = new ArrayList<String>();
 
-        valuesWoman.add(830);
-        valuesWoman.add(3025);
-        valuesWoman.add(10740);
-        valuesWoman.add(18897);
-        valuesWoman.add(23155);
-        valuesWoman.add(27312);
-        valuesWoman.add(28706);
-        valuesWoman.add(22341);
-        valuesWoman.add(19243);
-
-        valuesMan.add(530);
-        valuesMan.add(1681);
-        valuesMan.add(8969);
-        valuesMan.add(16424);
-        valuesMan.add(21532);
-        valuesMan.add(26576);
-        valuesMan.add(29173);
-        valuesMan.add(23145);
-        valuesMan.add(19973);
-
-        setValuesWoman(valuesWoman);
-        setPercentsWoman(mValuesWoman);
-        setmValuesMan(valuesMan);
-        setPercentsMan(mValuesMan);
         drawWoman();
         drawMan();
-        labels.add("90+");
-        labels.add("80-84");
-        labels.add("60-64");
-        labels.add("50-54");
-        labels.add("40-44");
-        labels.add("30-34");
-        labels.add("20-24");
-        labels.add("10-14");
-        labels.add("0-4");
 
-        setLabels(labels);
+
         drawLabels();
 
     }
@@ -103,8 +71,8 @@ public class DemoChart extends View {
         mPaintBarsRight = new Paint();
         mPaintBarsLeft = new Paint();
         mPaintLabels = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaintBarsRight.setColor(Color.BLUE);
-        mPaintBarsLeft.setColor(Color.MAGENTA);
+        mPaintBarsRight.setColor(mColorWoman);
+        mPaintBarsLeft.setColor(mColorMan);
         mPaintLabels.setColor(Color.BLACK);
         mPaintLabels.setTextSize(10*mD);
         mPaintLabels.setStyle(Paint.Style.FILL);
@@ -178,8 +146,10 @@ public class DemoChart extends View {
     }
     public void setmValuesMan(List<Integer> mValuesMan) {
         this.mValuesMan = mValuesMan;
+        setPercentsMan(mValuesMan);
     }
     public void setValuesWoman(List<Integer> mValuesWoman) {
         this.mValuesWoman = mValuesWoman;
+        setPercentsWoman(mValuesWoman);
     }
 }

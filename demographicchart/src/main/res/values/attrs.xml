@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DemoChart">
+        <attr name="manColor" format="color"></attr>
+        <attr name="womanColor" format="color"></attr>
+
+    </declare-styleable>
+
+</resources>
