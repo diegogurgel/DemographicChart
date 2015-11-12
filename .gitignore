@@ -6,3 +6,7 @@
 .DS_Store
 /build
 /captures
+demographicchart/.gitignore
+demographicchart/build.gradle
+demographicchart/demographicchart.iml
+demographicchart/proguard-rules.pro
