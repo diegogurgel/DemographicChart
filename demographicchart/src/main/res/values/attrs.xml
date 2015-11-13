@@ -3,7 +3,7 @@
     <declare-styleable name="DemoChart">
         <attr name="manColor" format="color"></attr>
         <attr name="womanColor" format="color"></attr>
-
+        <attr name="textColor" format="color"></attr>
     </declare-styleable>
 
 </resources>

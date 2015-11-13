@@ -11,7 +11,7 @@
     <com.diegogurgel.demographicchart.DemoChart
         android:id="@+id/demo"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         app:womanColor="@color/colorWoman"
         app:manColor="@color/colorMan"/>
 </RelativeLayout>
