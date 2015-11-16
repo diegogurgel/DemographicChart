@@ -3,9 +3,13 @@
 /.idea/workspace.xml
 /.idea/libraries
 /.idea
+.idea/
 .DS_Store
 /build
 /captures
+app/build.gradle
+app/app.iml
+demographicchart/build.gradle
 demographicchart/.gitignore
 demographicchart/build.gradle
 demographicchart/demographicchart.iml
