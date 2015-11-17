@@ -14,3 +14,10 @@ demographicchart/.gitignore
 demographicchart/build.gradle
 demographicchart/demographicchart.iml
 demographicchart/proguard-rules.pro
+
+.idea/.name
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
