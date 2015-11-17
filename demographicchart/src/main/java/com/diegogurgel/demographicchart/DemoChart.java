@@ -36,7 +36,9 @@ public class DemoChart extends View {
     List<Integer> mPercentsMan;
     List<Integer> mValuesMan;
     List<String> mLabels;
-    int mColorMan,mColorWoman,mTextColor;
+    int mColorMan;
+    int mColorWoman;
+    int mTextColor;
 
 
     public DemoChart(Context context, AttributeSet attrs) {
@@ -158,5 +160,16 @@ public class DemoChart extends View {
     public void setValuesWoman(List<Integer> mValuesWoman) {
         this.mValuesWoman = mValuesWoman;
         setPercentsWoman(mValuesWoman);
+    }
+    public void setTextColor(int textColor) {
+        this.mTextColor = textColor;
+    }
+
+    public void setColorWoman(int colorWoman) {
+        this.mColorWoman = colorWoman;
+    }
+
+    public void setColorMan(int colorMan) {
+        this.mColorMan = colorMan;
     }
 }
