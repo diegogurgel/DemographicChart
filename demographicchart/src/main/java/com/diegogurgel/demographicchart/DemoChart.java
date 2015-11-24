@@ -23,6 +23,8 @@ public class DemoChart extends View {
     private int mHorizCenter;
     private int mHorizCenterWoman;
     private int mHorizCenterMan;
+    private int mMacWidthWoman;
+    private int mMaxWidthMan;
     private int mLineDistance;
     private int mMidleSpace;
     private int mHeightBars;
@@ -59,16 +61,21 @@ public class DemoChart extends View {
         super.onDraw(canvas);
         mCanvas = canvas;
         mWidth = canvas.getWidth();
-        mHeight = canvas.getHeight();
+        mHeight = canvas.getHeight() - (int)(15*mD);
         mHorizCenter = mWidth/2;
         mHorizCenterWoman = mHorizCenter+ mMidleSpace;
         mHorizCenterMan = mHorizCenter- mMidleSpace;
-        mLineDistance = Math.round(mCanvas.getHeight()/mValuesWoman.size())-mHeightBars;
+
+        mLineDistance = Math.round(mHeight/mValuesWoman.size())-mHeightBars;
         init();
         drawWoman();
         drawMan();
         drawLabels();
+        drawScales();
     }
+
+
+
     private void init(){
         mPaintBarsRight = new Paint();
         mPaintBarsLeft = new Paint();
@@ -132,11 +139,24 @@ public class DemoChart extends View {
             drawLabel(mLabels.get(i), endY);
         }
     }
+    private void drawScales(){
+        drawScale("0",mHorizCenterMan);
+        drawScale("0",mHorizCenterWoman);
+        int max = (mMax/1000);
+        int scale = max/5;
+        int distante = mHorizCenterMan/5;
+
+        for (int i = 0; i < 5 ; i++) {
+            drawScale((max-(scale*i))+"",(i*distante)+(int)(5*mD));
+            drawScale((max-(scale*i))+"",mWidth-((i*distante)+(int)(5*mD)));
+
+        }
+    }
     public void drawLabel(String text,int y){
         mCanvas.drawText(text,mHorizCenter,y,mPaintLabels);
     }
-    public void drawScale(){
-
+    public void drawScale(String text, int x){
+        mCanvas.drawText(text,x,(mHeight-mLineDistance)+(10*mD),mPaintLabels);
     }
     public void drawMan(){
         int difference = mMidleSpace*2;
