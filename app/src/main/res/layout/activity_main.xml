@@ -13,5 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         app:womanColor="@color/colorWoman"
-        app:manColor="@color/colorMan"/>
+        app:manColor="@color/colorMan"
+        app:xAxisLength="10"
+        />
 </RelativeLayout>

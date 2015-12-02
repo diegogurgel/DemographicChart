@@ -23,8 +23,6 @@ public class DemoChart extends View {
     private int mHorizCenter;
     private int mHorizCenterWoman;
     private int mHorizCenterMan;
-    private int mMacWidthWoman;
-    private int mMaxWidthMan;
     private int mLineDistance;
     private int mMidleSpace;
     private int mHeightBars;
@@ -41,6 +39,8 @@ public class DemoChart extends View {
     int mColorMan;
     int mColorWoman;
     int mTextColor;
+    int mScale;
+    int mXaxisLength;
 
 
     public DemoChart(Context context, AttributeSet attrs) {
@@ -53,6 +53,8 @@ public class DemoChart extends View {
         mColorMan = a.getColor(R.styleable.DemoChart_manColor,Color.BLUE);
         mColorWoman = a.getColor(R.styleable.DemoChart_womanColor,Color.MAGENTA);
         mTextColor = a.getColor(R.styleable.DemoChart_textColor,Color.BLACK);
+        mScale = a.getInteger(R.styleable.DemoChart_xAxisScale, 1000);
+        mXaxisLength = a.getInteger(R.styleable.DemoChart_xAxisLength,5);
 
     }
 
@@ -128,7 +130,7 @@ public class DemoChart extends View {
             int endY = startY+mHeightBars;
 
             int endX = mHorizCenterWoman+((totalSize*mPercentsWomen.get(i))/100);
-            drawLineRight(startY,endY,endX);
+            drawLineRight(startY, endY, endX);
         }
     }
     public void drawLabels(){
@@ -142,11 +144,23 @@ public class DemoChart extends View {
     private void drawScales(){
         drawScale("0",mHorizCenterMan);
         drawScale("0",mHorizCenterWoman);
+        int maxXLabels = 10;
+        int maxDivisor=1;
         int max = (mMax/1000);
-        int scale = max/5;
-        int distante = mHorizCenterMan/5;
 
-        for (int i = 0; i < 5 ; i++) {
+        //To-do verify prime number
+        
+        for (int i = 2; i <= maxXLabels; i++) {
+            if((max%i)==0){
+                maxDivisor=i;
+            }
+        }
+
+        int scale = (max/maxDivisor);
+        int distante = mHorizCenterMan/maxDivisor;
+
+
+       for (int i = 0; i < 7 ; i++) {
             drawScale((max-(scale*i))+"",(i*distante)+(int)(5*mD));
             drawScale((max-(scale*i))+"",mWidth-((i*distante)+(int)(5*mD)));
 
