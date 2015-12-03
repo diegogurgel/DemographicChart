@@ -146,23 +146,36 @@ public class DemoChart extends View {
         drawScale("0",mHorizCenterWoman);
         int maxXLabels = 10;
         int maxDivisor=1;
-        int max = (mMax/1000);
+        float max = (mMax/1000);
 
         //To-do verify prime number
-        
+        float minModule = Integer.MAX_VALUE;
+        int minModulePos = 0;
+        float module;
         for (int i = 2; i <= maxXLabels; i++) {
-            if((max%i)==0){
+            module = max%i;
+            if(module==0){
                 maxDivisor=i;
+            }else{
+                if(minModule>module){
+                    minModule=module;
+                    minModulePos=i;
+                }
             }
         }
-
-        int scale = (max/maxDivisor);
+        boolean round = true;
+        if(maxDivisor==1){
+            maxDivisor = minModulePos;
+            round = false;
+        }
+        float scale = (max/maxDivisor);
         int distante = mHorizCenterMan/maxDivisor;
 
 
        for (int i = 0; i < 7 ; i++) {
-            drawScale((max-(scale*i))+"",(i*distante)+(int)(5*mD));
-            drawScale((max-(scale*i))+"",mWidth-((i*distante)+(int)(5*mD)));
+           String result = round ?(int)(max-(scale * i))+"":max-(scale*i)+"";
+            drawScale(result,(i*distante)+(int)(5*mD));
+            drawScale(result,mWidth-((i*distante)+(int)(5*mD)));
 
         }
     }
