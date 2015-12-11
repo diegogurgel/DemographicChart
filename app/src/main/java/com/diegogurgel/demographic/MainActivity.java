@@ -20,25 +20,25 @@ public class MainActivity extends Activity {
         List<Integer> valuesMan = new ArrayList<Integer>();
         List<String> labels = new ArrayList<String>();
 
-        valuesWoman.add(830);
-        valuesWoman.add(3025);
-        valuesWoman.add(10740);
-        valuesWoman.add(18897);
-        valuesWoman.add(23155);
-        valuesWoman.add(27312);
-        valuesWoman.add(28706);
-        valuesWoman.add(22341);
-        valuesWoman.add(19243);
+        valuesWoman.add(620);
+        valuesWoman.add(1918);
+        valuesWoman.add(6284);
+        valuesWoman.add(10086);
+        valuesWoman.add(11029);
+        valuesWoman.add(12459);
+        valuesWoman.add(13399);
+        valuesWoman.add(10503);
+        valuesWoman.add(8764);
 
-        valuesMan.add(530);
-        valuesMan.add(1681);
-        valuesMan.add(8969);
-        valuesMan.add(16424);
-        valuesMan.add(20532);
-        valuesMan.add(25576);
-        valuesMan.add(24173);
-        valuesMan.add(20145);
-        valuesMan.add(19973);
+        valuesMan.add(1671);
+        valuesMan.add(8443);
+        valuesMan.add(40257);
+        valuesMan.add(65941);
+        valuesMan.add(78564);
+        valuesMan.add(102211);
+        valuesMan.add(106240);
+        valuesMan.add(86338);
+        valuesMan.add(68235);
 
         labels.add("90+");
         labels.add("80-84");
@@ -50,8 +50,7 @@ public class MainActivity extends Activity {
         labels.add("10-14");
         labels.add("0-4");
         mDemographicChart.setLabels(labels);
-        mDemographicChart.setValuesWoman(valuesWoman);
-        mDemographicChart.setmValuesMan(valuesMan);
+        mDemographicChart.setValues(valuesWoman,valuesMan);
 
 
 

@@ -69,6 +69,7 @@ public class DemoChart extends View {
         mHorizCenterMan = mHorizCenter- mMidleSpace;
 
         mLineDistance = Math.round(mHeight/mValuesWoman.size())-mHeightBars;
+        setMax();
         init();
         drawWoman();
         drawMan();
@@ -76,6 +77,18 @@ public class DemoChart extends View {
         drawScales();
     }
 
+    private void setMax() {
+        for (Integer value : mValuesMan) {
+            if(value>mMax){
+                mMax=value;
+            }
+        }
+        for (Integer value : mValuesWoman) {
+            if(value>mMax){
+                mMax=value;
+            }
+        }
+    }
 
 
     private void init(){
@@ -103,21 +116,11 @@ public class DemoChart extends View {
     public void setPercentsWoman(List<Integer> values){
         mPercentsWomen = new ArrayList<Integer>();
         for (Integer value : values) {
-            if(value>mMax){
-                mMax=value;
-            }
-        }
-        for (Integer value : values) {
             mPercentsWomen.add((value*100)/mMax);
         }
     }
     public void setPercentsMan(List<Integer> values){
         mPercentsMan = new ArrayList<Integer>();
-        for (Integer value : values) {
-            if(value>mMax){
-                mMax=value;
-            }
-        }
         for (Integer value : values) {
             mPercentsMan.add((value*100)/mMax);
         }
@@ -142,41 +145,22 @@ public class DemoChart extends View {
         }
     }
     private void drawScales(){
+        int labelNumber = 5;
+        int modMax = mMax%labelNumber;
+        mMax+=modMax;
+        int max = (mMax/1000);
         drawScale("0",mHorizCenterMan);
         drawScale("0",mHorizCenterWoman);
-        int maxXLabels = 10;
-        int maxDivisor=1;
-        float max = (mMax/1000);
 
-        //To-do verify prime number
-        float minModule = Integer.MAX_VALUE;
-        int minModulePos = 0;
-        float module;
-        for (int i = 2; i <= maxXLabels; i++) {
-            module = max%i;
-            if(module==0){
-                maxDivisor=i;
-            }else{
-                if(minModule>module){
-                    minModule=module;
-                    minModulePos=i;
-                }
-            }
-        }
-        boolean round = true;
-        if(maxDivisor==1){
-            maxDivisor = minModulePos;
-            round = false;
-        }
-        float scale = (max/maxDivisor);
-        int distante = mHorizCenterMan/maxDivisor;
+        int xSpace = (int)(5*mD);
+        int scale = (max/labelNumber);
+        int distante = mHorizCenterMan/labelNumber;
 
 
-       for (int i = 0; i < 7 ; i++) {
-           String result = round ?(int)(max-(scale * i))+"":max-(scale*i)+"";
-            drawScale(result,(i*distante)+(int)(5*mD));
-            drawScale(result,mWidth-((i*distante)+(int)(5*mD)));
-
+       for (int i = 0; i < labelNumber ; i++) {
+           String result = max-(scale*i)+"";
+           drawScale(result,(i*distante)+xSpace);
+           drawScale(result, mWidth - ((i * distante) + xSpace));
         }
     }
     public void drawLabel(String text,int y){
@@ -200,14 +184,20 @@ public class DemoChart extends View {
         this.mLabels = mLabels;
     }
 
-    public void setmValuesMan(List<Integer> mValuesMan) {
+    private void setmValuesMan(List<Integer> mValuesMan) {
         this.mValuesMan = mValuesMan;
-        setPercentsMan(mValuesMan);
     }
-    public void setValuesWoman(List<Integer> mValuesWoman) {
+    private void setValuesWoman(List<Integer> mValuesWoman) {
         this.mValuesWoman = mValuesWoman;
+    }
+    public void setValues(List<Integer> mValuesWoman,List<Integer> mValuesMen){
+        this.mValuesWoman = mValuesWoman;
+        this.mValuesMan = mValuesMen;
+        this.setMax();
+        setPercentsMan(mValuesMan);
         setPercentsWoman(mValuesWoman);
     }
+
     public void setTextColor(int textColor) {
         this.mTextColor = textColor;
     }

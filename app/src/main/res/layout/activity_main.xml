@@ -14,6 +14,6 @@
         android:layout_height="110dp"
         app:womanColor="@color/colorWoman"
         app:manColor="@color/colorMan"
-        app:xAxisLength="10"
+        app:xAxisLength="6"
         />
 </RelativeLayout>
