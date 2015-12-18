@@ -9,6 +9,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,10 +156,19 @@ public class DemoChart extends View {
         int xSpace = (int)(5*mD);
         int scale = (max/labelNumber);
         int distante = mHorizCenterMan/labelNumber;
-
+        float decimalScale = 0.0f;
+        if(scale==0){
+            decimalScale = (float)((float)max/(float)labelNumber);
+        }
 
        for (int i = 0; i < labelNumber ; i++) {
-           String result = max-(scale*i)+"";
+           String result="";
+           if(decimalScale!=0){
+               DecimalFormat df = new DecimalFormat("#.#");
+               result = df.format(max-decimalScale * i);
+           }else{
+               result = max-(scale*i)+"";
+           }
            drawScale(result,(i*distante)+xSpace);
            drawScale(result, mWidth - ((i * distante) + xSpace));
         }
